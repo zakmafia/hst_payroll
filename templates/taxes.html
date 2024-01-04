@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        {% include 'includes/alerts.html' %}
+        <h4 class="card-title">Taxes</h4>
+        <a href="{% url 'create-tax-rule' %}"><p class="card-description"> + Add New Tax Rule 
+        </p></a>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th> # </th>
+              <th> Initial Range </th>
+              <th> Final Range </th>
+              <th> Tax Rate </th>
+              <th> Deduction </th>
+              <th> Edit </th>
+              <th> Delete </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for tax in taxes %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              <td>{{tax.initial_range}}</td>
+              <td>{{tax.final_range}}</td>
+              <td>{{tax.tax_rate}}</td>
+              <td>{{tax.deduction}}</td>
+              <td> <a href="{% url 'update-tax-rule' tax.id %}">Edit</a> </td>
+              <td> <a href="{% url 'delete-tax-rule' tax.id %}">Delete</a> </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

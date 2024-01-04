@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{payroll}}'s Payroll</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th> From Date </th>
+                            <th> To Date </th>
+                            <th> Total Gross Salary </th>
+                            <th> Total Tax </th>
+                            <th> Pension Contribution </th>
+                            <th> Total Deduction </th>
+                            <th> Net Salary </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% load humanize %}
+                        <tr>
+                            <td>{{payroll.from_date}}</td>
+                            <td>{{payroll.to_date}}</td>
+                            <td>{{payroll.total_gross_salary|intcomma}} ETB</td>
+                            <td>{{payroll.total_tax|intcomma}} ETB</td>
+                            <td>{{payroll.pension_contribution|intcomma}} ETB</td>
+                            <td>{{payroll.total_deduction|intcomma}} ETB</td>
+                            <td>{{payroll.net_salary|intcomma}} ETB</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{employee_salary}}</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th> Total working days </th>
+                            <th> Gross Salary </th>
+                            <th> Payment Currency </th>
+                            <th> Foreign Currency Adjustment </th>
+                            <th> Pension % </th>
+                            <th> Total Pension Contribution in amount </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{employee_salary.total_working_days}}</td>
+                            <td>{{employee_salary.gross_salary|intcomma}}</td>
+                            <td>{{employee_salary.payment_currency | upper}}</td>
+                            <td>{{employee_salary.foreign_currency_adjustment|intcomma}}</td>
+                            <td>{{employee_salary.pension}}</td>
+                            <td>{{employee_salary.pension_contribution|intcomma}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Allowances</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th> # </th>
+                            <th> Allowance </th>
+                            <th> Amount </th>
+                            <th> Payment Currency </th>
+                            <th> Is Taxable </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for allowance in employee_allowances %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{allowance.allowance.allowance_name}}</td>
+                            <td>{{allowance.amount|intcomma}}</td>
+                            <td>{{allowance.payment_currency | upper }}</td>
+                            <td>
+                                {% if allowance.allowance.is_taxable == True %}
+                                <label class="badge badge-success">Yes</label>
+                                {% else %}
+                                <label class="badge badge-danger">No</label>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Deductions</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th> # </th>
+                            <th> Deduction </th>
+                            <th> Amount </th>
+                            <th> Payment Currency </th>
+                            <th> Is Taxable </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for deduction in employee_deductions %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{deduction.deduction.deduction_name}}</td>
+                            <td>{{deduction.amount|intcomma}}</td>
+                            <td>{{deduction.payment_currency | upper}}</td>
+                            <td>
+                                {% if deduction.deduction.is_taxable == True %}
+                                <label class="badge badge-success">Yes</label>
+                                {% else %}
+                                <label class="badge badge-danger">No</label>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Deductions in Percentage</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th> # </th>
+                            <th> Deduction </th>
+                            <th> Percentage </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for deduction in employee_percentage_deductions %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{deduction.deduction.deduction_name}}</td>
+                            <td>{{deduction.deduction_percentage}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

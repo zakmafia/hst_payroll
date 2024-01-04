@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            {% include 'includes/alerts.html' %}
+            <h4 class="card-title">{{employee}}'s Allowances</h4>
+            <p class="card-description"> Create your employee's allowances </p>
+            <form class="forms-sample" action="" method="POST">
+              {% csrf_token %}
+              {% for field in form %}
+              <div class="form-group">
+                <label>{{ field.label }}</label>
+                {{field}}
+              </div>
+              {% endfor %}
+              <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+              <a class="btn btn-light" href="{% url 'salary-detail' salary_id %}">Cancel</a>
+            </form>
+          </div>
+        </div>
+      </div>
+</div>
+{% endblock content %}

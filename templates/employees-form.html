@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            {% include 'includes/alerts.html' %}
+            <h4 class="card-title">Employee Form</h4>
+            <form class="form-sample" action="" method="POST">
+              {% csrf_token %}
+              <p class="card-description"> Personal info </p>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">First Name</label>
+                    <div class="col-sm-9">
+                      {{form.first_name}}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Last Name</label>
+                    <div class="col-sm-9">
+                      {{form.last_name}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Gender</label>
+                    <div class="col-sm-9">
+                      {{form.gender}}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Date of Birth</label>
+                    <div class="col-sm-9">
+                      {{form.birthday}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Email</label>
+                    <div class="col-sm-9">
+                        {{form.email}}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">Date Hired</label>
+                      <div class="col-sm-9">
+                          {{form.date_hired}}
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <p class="card-description"> Address </p>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Phone Number</label>
+                    <div class="col-sm-9">
+                      {{form.phone_number}}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Country</label>
+                    <div class="col-sm-9">
+                      {{form.country}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">City</label>
+                    <div class="col-sm-9">
+                      {{form.city}}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Department</label>
+                    <div class="col-sm-9">
+                      {{form.department}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Position</label>
+                    <div class="col-sm-9">
+                      {{form.position}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="card-description"> Bank Information </p>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Account Number</label>
+                    <div class="col-sm-9">
+                      {{form.account_number}}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Bank Name</label>
+                    <div class="col-sm-9">
+                      {{form.bank_name}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="card-description"> Employee Status </p>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Status</label>
+                    <div class="col-sm-9">
+                      {{form.status}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+              <a class="btn btn-light" href="{% url 'employees' %}">Cancel</a>
+            </form>
+          </div>
+        </div>
+      </div>
+</div>
+{% endblock content %}

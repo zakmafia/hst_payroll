@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            {% include 'includes/alerts.html' %}
+            <h4 class="card-title">Allowances</h4>
+            <p class="card-description"> Create your allowances </p>
+            <form class="forms-sample" action="" method="POST">
+              {% csrf_token %}
+              <div class="form-group">
+                <label>Allowance name</label>
+                {{form.allowance_name}}
+                <div class="form-check">
+                  <label class="form-check-label">
+                    {{form.is_taxable}} Is Taxable </label>
+                </div>
+              </div>
+              
+              <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+              <a class="btn btn-light" href="{% url 'allowances' %}">Cancel</a>
+            </form>
+          </div>
+        </div>
+      </div>
+</div>
+{% endblock content %}

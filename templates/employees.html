@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Employees</h4>
+        <a href="{% url 'add-employees' %}"><p class="card-description"> + Add New Employee 
+        </p></a>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th> # </th>
+              <th> First name </th>
+              <th> Last name </th>
+              <th> Gender </th>
+              <th> Email </th>
+              <th> Phone Number </th>
+              <th> Department </th>
+              <th> Status </th>
+              <th> Edit </th>
+              <th> Delete </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for employee in employees %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              <td>{{employee.first_name}}</td>
+              <td>{{employee.last_name}}</td>
+              <td>{{employee.gender}}</td>
+              <td>{{employee.email}}</td>
+              <td>{{employee.phone_number}}</td>
+              <td>{{employee.department}}</td>
+              <td>
+                {% if employee.status == 'active' %}
+                <label class="badge badge-success">{{employee.status}}</label>
+                {% else %}
+                <label class="badge badge-danger">{{employee.status}}</label>
+                {% endif %}
+              </td>
+              <td> <a href="{% url 'update-employee' employee.id %}">Edit</a> </td>
+              <td> <a href="{% url 'delete-employee' employee.id %}">Delete</a> </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

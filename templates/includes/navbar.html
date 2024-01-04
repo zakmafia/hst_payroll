@@ -1,7 +1,7 @@
 {% load static %}
 <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-      <a class="navbar-brand brand-logo" href="index.html"><img src="{% static 'assets/images/logo.svg' %}" alt="logo" /></a>
+      <a class="navbar-brand brand-logo" href="{% url 'dashboard' %}">HST Payroll</a>
       <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{% static 'assets/images/logo-mini.svg' %}" alt="logo" /></a>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-stretch">
@@ -21,19 +21,19 @@
       <ul class="navbar-nav navbar-nav-right">
         <li class="nav-item nav-profile dropdown">
           <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-            <div class="nav-profile-img">
+            {% comment %} <div class="nav-profile-img">
               <img src="{% static 'assets/images/faces/face1.jpg' %}" alt="image">
               <span class="availability-status online"></span>
-            </div>
+            </div> {% endcomment %}
             <div class="nav-profile-text">
-              <p class="mb-1 text-black">David Greymaax</p>
+              <p class="mb-1 text-black">{{user.username}}</p>
             </div>
           </a>
           <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
             {% comment %} <a class="dropdown-item" href="#">
               <i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
             <div class="dropdown-divider"></div> {% endcomment %}
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="{% url 'logout' %}">
               <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
           </div>
         </li>
@@ -153,38 +153,54 @@
       <ul class="nav">
         <li class="nav-item nav-profile">
           <a href="#" class="nav-link">
-            <div class="nav-profile-image">
+            {% comment %} <div class="nav-profile-image">
               <img src="{% static 'assets/images/faces/face1.jpg' %}" alt="profile">
               <span class="login-status online"></span>
               <!--change to offline or busy as needed-->
-            </div>
+            </div> {% endcomment %}
             <div class="nav-profile-text d-flex flex-column">
-              <span class="font-weight-bold mb-2">David Grey. H</span>
-              <span class="text-secondary text-small">Project Manager</span>
+              <span class="font-weight-bold mb-2">{{user.username}}</span>
+              <span class="text-secondary text-small">{% if user.is_superuser %}Super Admin{% endif %}</span>
             </div>
             <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="{% url 'dashboard' %}">
             <span class="menu-title">Dashboard</span>
             <i class="mdi mdi-home menu-icon"></i>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-            <span class="menu-title">Basic UI Elements</span>
+            <span class="menu-title">Administrator</span>
             <i class="menu-arrow"></i>
             <i class="mdi mdi-crosshairs-gps menu-icon"></i>
           </a>
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{% url 'departments' %}">Configure Departments</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{% url 'positions' %}">Configure Postitions</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{% url 'taxes' %}">Configure Tax Rules</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{% url 'allowances' %}">Configure Allowances</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{% url 'deductions' %}">Configure Deductions</a></li>
             </ul>
           </div>
         </li>
         <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
+            <span class="menu-title">Employee Management</span>
+            <i class="menu-arrow"></i>
+            <i class="mdi mdi-account-multiple"></i>
+          </a>
+          <div class="collapse" id="general-pages">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="{% url 'employees' %}"> Configure Employees </a></li>
+              <li class="nav-item"> <a class="nav-link" href="{% url 'salaries' %}"> Configure Salary </a></li>
+            </ul>
+          </div>
+        </li>
+        {% comment %} <li class="nav-item">
           <a class="nav-link" href="pages/icons/mdi.html">
             <span class="menu-title">Icons</span>
             <i class="mdi mdi-contacts menu-icon"></i>
@@ -208,28 +224,13 @@
             <i class="mdi mdi-table-large menu-icon"></i>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
-            <span class="menu-title">Sample Pages</span>
-            <i class="menu-arrow"></i>
-            <i class="mdi mdi-medical-bag menu-icon"></i>
-          </a>
-          <div class="collapse" id="general-pages">
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
-            </ul>
-          </div>
-        </li>
+        {% endcomment %}
         <li class="nav-item sidebar-actions">
           <span class="nav-link">
             <div class="border-bottom">
-              <h6 class="font-weight-normal mb-3">Projects</h6>
+              <h6 class="font-weight-normal mb-3">Payroll Management</h6>
             </div>
-            <button class="btn btn-block btn-lg btn-gradient-primary mt-4">Generate Payroll</button>
+            <a class="btn btn-block btn-lg btn-gradient-primary mt-4" href="{% url 'generate-payroll' %}">Configure Payroll</a>
             {% comment %} <div class="mt-4">
               <div class="border-bottom">
                 <p class="text-secondary">Categories</p>
@@ -238,9 +239,9 @@
                 <li>Free</li>
                 <li>Pro</li>
               </ul>
-            </div> {% endcomment %}
+            </div>  {% endcomment %}
           </span>
-        </li>
+        </li> 
       </ul>
     </nav>
 <!-- partial -->

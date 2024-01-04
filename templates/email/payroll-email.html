@@ -1,0 +1,9 @@
+{% autoescape off %}
+Hi {{employee}}, Your Net Pay from {{from_date}} to {{to_date}} is {{net_salary}}. 
+{% if total_gross_salary %}Your Total Gross Salary is {{total_gross_salary }} {% endif %}
+{% if gross_salary %}Your Gross Salary is {{gross_salary}} {% endif %}
+{% if allowance_string %}Your allowances are {{allowance_string}} {% endif %}
+{% if deduction_string %}Your deductions are {{deduction_string}} {% endif %}
+{% if percentage_deduction_string %}Your percentage deductions are {{percentage_deduction_string}} {% endif %}
+
+{% endautoescape %}

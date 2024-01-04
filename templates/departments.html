@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        {% include 'includes/alerts.html' %}
+        <h4 class="card-title">Departments</h4>
+        <a href="{% url 'create-department' %}"><p class="card-description"> + Add New Department
+        </p></a>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th> # </th>
+              <th> Department Name </th>
+              <th> Status </th>
+              <th> Edit </th>
+              <th> Delete </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for department in departments %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              <td>{{department.department_name}}</td>
+              <td>
+                {% if department.status == 'active' %}
+                <label class="badge badge-success">{{department.status}}</label>
+                {% elif department.status == 'pending' %}
+                <label class="badge badge-warning">{{department.status}}</label>
+                {% else %}
+                <label class="badge badge-danger">{{department.status}}</label>
+                {% endif %}
+              </td>
+              <td> <a href="{% url 'update-department' department.id %}">Edit</a> </td>
+              <td> <a href="{% url 'delete-department' department.id %}">Delete</a> </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        {% include 'includes/alerts.html' %}
+        <h4 class="card-title">Positions</h4>
+        <a href="{% url 'create-position' %}"><p class="card-description"> + Add New Position
+        </p></a>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th> # </th>
+              <th> Position Name </th>
+              <th> Status </th>
+              <th> Edit </th>
+              <th> Delete </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for position in positions %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              <td>{{position.position_name}}</td>
+              <td>
+                {% if position.status == 'active' %}
+                <label class="badge badge-success">{{position.status}}</label>
+                {% elif position.status == 'pending' %}
+                <label class="badge badge-warning">{{position.status}}</label>
+                {% else %}
+                <label class="badge badge-danger">{{position.status}}</label>
+                {% endif %}
+              </td>
+              <td> <a href="{% url 'update-position' position.id %}">Edit</a> </td>
+              <td> <a href="{% url 'delete-position' position.id %}">Delete</a> </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        {% include 'includes/alerts.html' %}
+        <h4 class="card-title">Allowances</h4>
+        <a href="{% url 'create-allowances' %}"><p class="card-description"> + Add New Allowance
+        </p></a>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th> # </th>
+              <th> Allowance Name </th>
+              <th> Is Taxable </th>
+              <th> Edit </th>
+              <th> Delete </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for allowance in allowances %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              <td>{{allowance.allowance_name}}</td>
+              <td>
+                {% if allowance.is_taxable == True %}
+                <label class="badge badge-success">Yes</label>
+                {% else %}
+                <label class="badge badge-danger">No</label>
+                {% endif %}
+              </td>
+              <td> <a href="{% url 'update-allowances' allowance.id %}">Edit</a> </td>
+              <td> <a href="{% url 'delete-allowance' allowance.id %}">Delete</a> </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
